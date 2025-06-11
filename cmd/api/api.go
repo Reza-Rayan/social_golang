@@ -26,6 +26,7 @@ func (app *application) mount() *chi.Mux {
 	r.Use(middleware.RequestID) //Injects a request ID into the context of each request
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Timeout(time.Second * 30)) // Timed out for each request duration
+	r.Use(middleware.Throttle(100))             // limitation request counts per minute
 
 	//EndPoints
 	r.Route("/v1", func(r chi.Router) {
